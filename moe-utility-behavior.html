@@ -1,0 +1,34 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<script>
+MoeUtilityBehavior = {
+
+    properties: {
+    },
+    // 防止選取文字
+    disableSelect: function(el) {
+        if (el.addEventListener) {
+            el.addEventListener("mousedown", this.disabler, "false");
+        } else {
+            el.attachEvent("onselectstart", this.disabler);
+        }
+    },
+
+    enableSelect: function(el) {
+        if (el.addEventListener) {
+            el.removeEventListener("mousedown", this.disabler, "false");
+        } else {
+            el.detachEvent("onselectstart", this.disabler);
+        }
+    },
+
+    disabler: function(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        return false;
+    },
+    ready: function() {
+        this.disableSelect( this.$$('[moePreventSelect]') );
+    }
+};
+</script>
